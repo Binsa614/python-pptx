@@ -1,0 +1,54 @@
+from pptx import Presentation
+from pptx.util import Inches, Pt
+from pptx.dml.color import RGBColor
+from pptx.enum.text import PP_ALIGN
+
+# Création de la présentation
+presentation = Presentation()
+
+# Liste des paragraphes de l'exposé
+paragraphes = [
+    "1. Introduction au cerveau humain\n\nLe cerveau humain est l'organe le plus fascinant et complexe du corps, pilotant nos pensées, émotions et actions. Avec ses milliards de neurones, il est le centre de contrôle de notre apprentissage, de notre mémoire et de notre compréhension. Dans cet exposé, nous allons explorer comment le subconscient influence l'apprentissage, découvrir des méthodes de révision efficaces, et examiner l'importance de la santé mentale.",
+    
+    "2. La capacité du cerveau humain en bits et gigaoctets\n\nLe cerveau humain a une capacité incroyable de stockage, souvent comparée à celle d'un ordinateur. En estimant la quantité d’informations qu’il peut retenir, les scientifiques avancent que notre cerveau pourrait contenir entre 1 et 2,5 pétaoctets de données, soit l’équivalent de 1 à 2,5 millions de gigaoctets. Cela nous permet de traiter et de mémoriser des informations de façon massive, bien au-delà de la capacité des ordinateurs actuels. Cela explique pourquoi, avec les bonnes techniques, nous pouvons apprendre et retenir une grande quantité de connaissances.",
+    
+    "3. Le subconscient et son rôle dans l'apprentissage\n\nLe subconscient est la partie cachée de notre esprit, un espace où sont stockées toutes les informations que nous percevons sans y penser consciemment. Pour les étudiants, le subconscient peut être un puissant allié pour mémoriser sans efforts. Par exemple, en relisant ses notes avant de dormir, le cerveau peut continuer à traiter ces informations inconsciemment, aidant ainsi à les fixer dans la mémoire.",
+    
+    "4. La méthode Pareto (80/20) pour optimiser ses révisions\n\nLa loi de Pareto, ou règle 80/20, est une méthode efficace pour structurer les révisions. Elle suggère que 20% des efforts produisent 80% des résultats. Dans le contexte des études, cela signifie se concentrer sur les points essentiels et les notions les plus importantes, qui sont souvent les plus récurrentes en examen. Cette stratégie permet de travailler intelligemment et de maximiser son temps d’étude.",
+    
+    "5. Techniques de révision efficaces\n\nDes techniques comme la méthode Pomodoro – se concentrer pendant 25 minutes, suivies d'une pause de 5 minutes – aident à garder l’esprit frais et concentré. Les flashcards, les exercices, et l'enseignement des concepts à d'autres sont également des moyens puissants pour renforcer la compréhension et la mémoire. En adoptant des méthodes structurées, on optimise l'apprentissage et la rétention des informations.",
+    
+    "6. La santé mentale et les études\n\nLa préparation aux examens peut générer un stress important, ce qui peut affecter la mémoire et la concentration. Prendre soin de sa santé mentale est essentiel pour un apprentissage efficace. Intégrer des activités comme la méditation, le sport, ou la lecture relaxante, ainsi que dormir suffisamment, permet de garder l’esprit clair et de réduire le stress. Un esprit sain aide le cerveau à mieux absorber et retenir les informations.",
+    
+    "7. Inspiré par Les 7 habitudes des gens efficaces\n\nLe livre Les 7 habitudes des gens efficaces de Stephen Covey propose des habitudes qui sont bénéfiques pour les étudiants. Par exemple, la première habitude, « Soyez proactif », pousse les étudiants à prendre des initiatives et à rester engagés dans leurs révisions. L’habitude « Prioriser » aide à mieux gérer le temps en se concentrant sur ce qui est vraiment important. Ces techniques aident les étudiants à être plus efficaces dans leur apprentissage et dans leur préparation.",
+    
+    "8. Conclusion : Un équilibre pour réussir\n\nEn combinant des techniques d'apprentissage intelligentes, des pauses adaptées, et en prenant soin de sa santé mentale, les étudiants peuvent optimiser leur révision et améliorer leurs résultats. Le cerveau humain possède des capacités extraordinaires d'apprentissage, mais il est essentiel de bien l'entretenir pour ne pas l'épuiser. Avec une bonne méthode et un équilibre sain, chacun peut exceller dans ses études et rester prêt pour de nouveaux défis."
+]
+
+# Couleurs de texte
+title_color = RGBColor(102, 178, 255)  # Bleu clair
+text_color = RGBColor(51, 51, 51)      # Gris foncé
+
+# Création des diapositives avec les paragraphes
+for paragraph in paragraphes:
+    slide = presentation.slides.add_slide(presentation.slide_layouts[1])
+    title, content = paragraph.split("\n\n", 1)
+
+    # Titre de la diapositive
+    title_shape = slide.shapes.title
+    title_shape.text = title
+    title_shape.text_frame.paragraphs[0].font.size = Pt(32)
+    title_shape.text_frame.paragraphs[0].font.bold = True
+    title_shape.text_frame.paragraphs[0].font.color.rgb = title_color
+
+    # Contenu de la diapositive
+    content_shape = slide.shapes.placeholders[1]
+    content_shape.text = content
+    for paragraph in content_shape.text_frame.paragraphs:
+        paragraph.font.size = Pt(20)
+        paragraph.font.color.rgb = text_color
+        paragraph.alignment = PP_ALIGN.LEFT
+
+# Sauvegarder la présentation
+presentation.save("Exposé_Cerveau_Humain.pptx")
+print("La présentation PowerPoint a été générée avec succès.")
